@@ -60,7 +60,9 @@ typedef struct {
     } _ep;
 } _z_sys_net_endpoint_t;
 
+#ifdef _MSC_VER
 inline void __asm__(char *instruction) { (void)(instruction); }
+#endif
 
 #ifdef __cplusplus
 }

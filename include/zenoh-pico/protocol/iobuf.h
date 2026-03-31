@@ -97,7 +97,7 @@ _z_iosli_t *_z_iosli_new(size_t capacity);
 _z_iosli_t _z_iosli_wrap(const uint8_t *buf, size_t length, size_t r_pos, size_t w_pos);
 _z_iosli_t _z_iosli_steal(_z_iosli_t *ios);
 _z_slice_t _z_iosli_to_bytes(const _z_iosli_t *ios);
-size_t _z_iosli_size(const _z_iosli_t *ios);
+/* Note: _z_iosli_size is defined as static inline above (TASKING C99 compat) */
 void _z_iosli_clear(_z_iosli_t *ios);
 void _z_iosli_free(_z_iosli_t **ios);
 void _z_iosli_copy(_z_iosli_t *dst, const _z_iosli_t *src);

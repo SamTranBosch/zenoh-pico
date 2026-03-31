@@ -310,6 +310,14 @@ z_result_t _z_write_filter_ctx_clear(_z_write_filter_ctx_t *ctx) {
     return res;
 }
 
+void _z_write_filter_ctx_remove_callbacks(_z_write_filter_ctx_t *ctx) {
+    _z_write_filter_mutex_lock(ctx);
+#if Z_FEATURE_MATCHING
+    _z_closure_matching_status_intmap_clear(&ctx->callbacks);
+#endif
+    _z_write_filter_mutex_unlock(ctx);
+}
+
 z_result_t _z_write_filter_clear(_z_write_filter_t *filter) {
     if (_Z_RC_IS_NULL(&filter->ctx)) {
         return _Z_RES_OK;
@@ -332,11 +340,6 @@ void _z_write_filter_ctx_remove_callback(_z_write_filter_ctx_t *ctx, size_t id) 
     _z_write_filter_mutex_unlock(ctx);
 }
 
-void _z_write_filter_ctx_remove_callbacks(_z_write_filter_ctx_t *ctx) {
-    _z_write_filter_mutex_lock(ctx);
-    _z_closure_matching_status_intmap_clear(&ctx->callbacks);
-    _z_write_filter_mutex_unlock(ctx);
-}
 
 z_result_t _z_write_filter_ctx_add_callback(_z_write_filter_ctx_t *ctx, size_t id, _z_closure_matching_status_t *v) {
     _z_closure_matching_status_t *ptr = (_z_closure_matching_status_t *)z_malloc(sizeof(_z_closure_matching_status_t));
