@@ -89,7 +89,10 @@ z_result_t _z_uint16_decode(uint16_t *u16, _z_zbuf_t *zbf) {
         _Z_WARN("Not enough bytes to read");
         _Z_ERROR_RETURN(_Z_ERR_MESSAGE_DESERIALIZATION_FAILED);
     }
-    *u16 = _z_zbuf_read(zbf) + (uint16_t)(_z_zbuf_read(zbf) << 8);
+    uint8_t zbf_b0 = _z_zbuf_read(zbf);
+    uint8_t zbf_b1 = _z_zbuf_read(zbf);
+    *u16 = zbf_b0 + (uint16_t)(zbf_b1 << 8);
+   
     _z_host_u16_from_le_u16(u16);
     return _Z_RES_OK;
 }
